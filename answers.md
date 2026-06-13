@@ -16,10 +16,10 @@ created: 2024-10-23T21:09
 
 Replace GIVEN_NAME_HERE, FAMILY_NAME_HERE and STUDENT_ID_HERE entries with your details:
 
-| Given Name      | Family Name      | Student ID      |
-|-----------------|------------------|-----------------|
-| Anna            | Seed             | x1234567890     |
-| GIVEN_NAME_HERE | FAMILY_NAME_HERE | STUDENT_ID_HERE |
+| Given Name | Family Name | Student ID  |
+|------------|-------------|-------------|
+| Anna       | Seed        | x1234567890 |
+| Turbat     | Turkhuu     | 20136824    |
 
 
 
@@ -131,15 +131,15 @@ This step provides a checklist for yout to ensure you have set up the assessment
 
 Put an X between each of the pairs of `[ ]` when you have completed the task:
 
-> - [ ] Create a new **empty** & **private** repository on GitHub (or the equivalent).
-> - [ ] Repository is named `xxx-ICT50220-SaaS-2-BED-NoSQL` replacing `xxx` with your initials.
-> - [ ] Cloned the repository to your local PC.
-> - [ ] Created a new folder called `assets` inside your cloned repository.
-> - [ ] Created an empty `ReadMe.md`.
-> - [ ] Created an empty `.gitignore` file in the assets folder.
-> - [ ] Downloaded the provided `sample.gitignore` file, moved it into the repository folder, and renamed it to `.gitignore`.
-> - [ ] Placed a copy of the assessment's Word document into the repository folder.
-> - [ ] Added all the new files and folders to the repository, commited them to version control, and pushed them to your private remote repository.
+> - [x] Create a new **empty** & **private** repository on GitHub (or the equivalent).
+> - [x] Repository is named `xxx-ICT50220-SaaS-2-BED-NoSQL` replacing `xxx` with your initials.
+> - [x] Cloned the repository to your local PC.
+> - [x] Created a new folder called `assets` inside your cloned repository.
+> - [x] Created an empty `ReadMe.md`.
+> - [x] Created an empty `.gitignore` file in the assets folder.
+> - [x] Downloaded the provided `sample.gitignore` file, moved it into the repository folder, and renamed it to `.gitignore`.
+> - [x] Placed a copy of the assessment's Word document into the repository folder.
+> - [x] Added all the new files and folders to the repository, commited them to version control, and pushed them to your private remote repository.
 
 ---
 
@@ -151,7 +151,11 @@ This step verifies you understand concepts that includes, but is not limited to 
 
 Briefly explain what is meant by the terms database, collection, document and field in terms of MongoDB.
 
-> ANSWER_HERE
+> Database is the container that holds many collections. 
+> Collection is a group of documents that are stored in the mongdob database. It is similar to tables in a relational 
+> database.
+> Document is made up of multiple fields and use a structure called BSON that is similar to JSON.
+> Field is the typical column in a relational database. In mongodb, fields are key-value pair.
 >
 > 
 
@@ -164,18 +168,29 @@ Briefly outline the key features and advantages for TWO of the following NoSQL d
 - Wide-Column Oriented Database
 - Graph Database
 
-> #
 
-## Database Type 1: NAME_HERE
->
->  ANSWER_HERE
+## Database Type 1: Document Database
+
+Key Features:
+- Stores data in a BSON file structure.
+- Flexible schema allows documents in the same collection to have different structures. 
+- Supports nested data and complex data types.
+
+Advantages:
+- Well suited for semi-structured or unstructured data.
+- Flexible schema makes application development faster.
 
 
-> #
+## Database Type 2: Graph Database
 
-## Database Type 2: NAME_HERE
->
-> ANSWER_HERE 
+Key Features:
+- Instead of tables or documents, it uses nodes, edges and properties
+- Optimised for traversing and querying connected data
+- Supports complex relationship query
+
+Advantages:
+- Makes it easy to model and query complex relationships.
+- Reduces the need for joins used in relational databases.
 
 
 ## 2.3 NoSQL Database Systems
@@ -184,18 +199,12 @@ Provide one example product (commercial or open source) for each of your NoSQL N
 
 You may **NOT** include _MongoDB_ which is an example of a _Document Database_.
 
-> #
 
-## Database Type 1: NAME_HERE
->
-> ANSWER_HERE
+## Database Type 1: Document Database
+> CouchDB
 
-
-> #
-
-## Database Type 2: NAME_HERE
->
-> ANSWER_HERE
+## Database Type 2: Graph Database
+> Neo4j
 
 
 ## 2.4 NoSQL Database Uses
@@ -204,18 +213,14 @@ Provide an example for each of your NoSQL database of the situation when your da
 
 The situations/application of the database types must be different.
 
-> #
+## Database Type 1: Document Database
+> Online Shopping Platform. There may be thousands of items with different attributes on the platform. The document
+> database would allow each document to store different fields without requiring a fixed schema.
 
-## Database Type 1: NAME_HERE
->
-> ANSWER_HERE
-
-
-> #
-
-## Database Type 2: NAME_HERE
->
-> ANSWER_HERE
+## Database Type 2: Graph Database
+> Social media platform. A social media application needs to manage relationships between users, friends, followers, 
+> posts and groups. A graph database efficiently stores and queries these connections, making features such as friend 
+> recommendations faster and more effective.
 
 
 

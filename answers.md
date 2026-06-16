@@ -298,7 +298,7 @@ Replace `FIELD_NAME_HERE` and `DATA_TYPE_HERE` in the table below.
 > $jsonSchema: {
 >   bsonType: "object",
 >   title: "Film object validation",
->   required: ["title", "year", "summary", "running_time", "directors", "actors"],
+>   required: ["title", "year", "summary", "running_time"],
 >   properties: {
 >       title: {
 >           bsonType: "string",
@@ -368,7 +368,7 @@ Replace `FIELD_NAME_HERE` and `DATA_TYPE_HERE` in the table below.
 
 Screen Shot:
 
-![img_1.png](img_1.png)![img_2.png](img_2.png)
+![img_3.png](assets/images/step-3-004.png)
 
 
 

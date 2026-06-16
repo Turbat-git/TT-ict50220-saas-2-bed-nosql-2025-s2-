@@ -230,15 +230,12 @@ The situations/application of the database types must be different.
 
 What naming convention will you use for the database, collections and fields used in the assessment scenario?
 
-> ANSWER_HERE
->
->
+> I will use snake_case
 
 Justify why did you choose this naming convention?
 
-> ANSWER_HERE
-> 
->
+> While there are not set standard set for MongoDB like Pep-8 for Python. On the MongoDB Atlas tutorials, the staff
+> were using snake_case for many of the database and collections.
 
 ## 3.2 Connecting
 
@@ -247,7 +244,7 @@ Justify why did you choose this naming convention?
 Add the Connection String used to connect to your MongoDB Atlas instance:
 
 > ```js
-> 	MONGODB_CONNECTION_STRING_HERE
+> 	mongosh "mongodb+srv://turbat-learning.ooypepa.mongodb.net/" --apiVersion 1 --username Turbat
 > ```
 
 
@@ -258,13 +255,12 @@ Add the Connection String used to connect to your MongoDB Atlas instance:
 - Create and use a database named `saas_bed_portfolio_2025s2`.
 
 > ```js
-> 	CREATE_AND_USE_DATABASE_IN_MONGODB_ANSWER_HERE
+> 	use saas_bed_portfolio_2026s1
 > ```
 
 Did you encounter any issues when creating the database? If you did, how did you resolve them?
 
 > ANSWER_HERE
->
 
 
 ## 3.4 Schema Design for Collection
@@ -275,29 +271,88 @@ In the `notes` column, add any clarifying details (such as rules) that may be us
 
 Replace `FIELD_NAME_HERE` and `DATA_TYPE_HERE` in the table below.
 
-> | Item                | Field Name      | MongoDB Data Type | Notes / Rules         |
-> |---------------------|-----------------|-------------------|-----------------------|
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> | Title               | FIELD_NAME_HERE | DATA_TYPE_HERE    | four digit year       |
-> | Year                | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> | Writers             | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> | Summary             | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> | Franchise           | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> | Running Time        | FIELD_NAME_HERE | DATA_TYPE_HERE    | minutes               |
-> | Budget              | FIELD_NAME_HERE | DATA_TYPE_HERE    | USD $                 |
-> | Box Office Takings  | FIELD_NAME_HERE | DATA_TYPE_HERE    | USD $                 |
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
-> |                     | FIELD_NAME_HERE | DATA_TYPE_HERE    |                       |
+> | Item               | Field Name        | MongoDB Data Type | Notes / Rules   |
+> |--------------------|-------------------|-------------------|-----------------|
+> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
+> | Title              | title             | string            |                 |
+> | Year               | year              | int               | four digit year |
+> | Writers            | writers           | array             |                 |
+> | Summary            | summary           | string            |                 |
+> | Franchise          | franchise         | string            |                 |
+> | Running Time       | running_time      | int               | minutes         |
+> | Budget             | budget            | long              | USD $           |
+> | Box Office Takings | b_office_earnings | long              | USD $           |
+> | Directors          | directors         | array             |                 |
+> | Actors             | actors            | array             |                 |
+> |                    |                   | DATA_TYPE_HERE    |                 |
+> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
+> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
+> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
 
 
 - Provide the schema validation code for the collection.
 
 > ```js
-> 	SCHEMA_VALIDATION_CODE_HERE
+> db.createCollection("films",{
+> validator: {
+> $jsonSchema: {
+>   bsonType: "object",
+>   title: "Film object validation",
+>   required: ["title", "year", "summary", "running_time", "directors", "actors"],
+>   properties: {
+>       title: {
+>           bsonType: "string",
+>           minLength: 1,
+>           maxLength: 200,
+>           description: "'title' must be a string and is required. "},
+>       year: {
+>           bsonType: "int",
+>           minimum: 1900,
+>           maximum: 2026,
+>           description: "'year' must be an integer and have 4 digits"},
+>       writers: {
+>           bsonType: "array",
+>           items: {
+>               bsonType: "string",
+>           },
+>           description: "'writers' must be an array of strings."},
+>       summary: {
+>           bsonType: "string",
+>           minLength: 1,
+>           description: "'summary' must be a string."},
+>       franchise: {
+>           bsonType: "string",
+>           description: "'franchise' must be a string"}, 
+>       running_time: {
+>           bsonType: "int",
+>           minimum: 1,
+>           description: "'running_time' must be an integer with a positive value."},
+>       budget: {
+>           bsonType: "long",
+>           minimum: 0,
+>           description: "'budget' must be a positive integer."},
+>       b_office_earnings: {
+>           bsonType: "long",
+>           minimum: 0,
+>           description: "'box_office_earnings' must be a positive integer."},
+>       directors: {
+>           bsonType: "array",
+>           items: {
+>               bsonType: "string"
+>           },
+>           minItems: 1,
+>           description: "'directors' must be an array of strings and have at least one value"},
+>       actors: {
+>           bsonType: "array",
+>           items: {
+>               bsonType: "string"
+>           },
+>           minItems: 1,
+>           description: "'actors' must be an array of strings and have at least one value"}
+> }  
+> }
+> },
+> })
 > ```
 
 
@@ -313,7 +368,7 @@ Replace `FIELD_NAME_HERE` and `DATA_TYPE_HERE` in the table below.
 
 Screen Shot:
 
-![Step 3.5 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_1.png](img_1.png)![img_2.png](img_2.png)
 
 
 

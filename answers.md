@@ -271,88 +271,88 @@ In the `notes` column, add any clarifying details (such as rules) that may be us
 
 Replace `FIELD_NAME_HERE` and `DATA_TYPE_HERE` in the table below.
 
-> | Item               | Field Name        | MongoDB Data Type | Notes / Rules   |
-> |--------------------|-------------------|-------------------|-----------------|
-> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
-> | Title              | title             | string            |                 |
-> | Year               | year              | int               | four digit year |
-> | Writers            | writers           | array             |                 |
-> | Summary            | summary           | string            |                 |
-> | Franchise          | franchise         | string            |                 |
-> | Running Time       | running_time      | int               | minutes         |
-> | Budget             | budget            | long              | USD $           |
-> | Box Office Takings | b_office_earnings | long              | USD $           |
-> | Directors          | directors         | array             |                 |
-> | Actors             | actors            | array             |                 |
-> |                    |                   | DATA_TYPE_HERE    |                 |
-> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
-> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
-> |                    | FIELD_NAME_HERE   | DATA_TYPE_HERE    |                 |
+> | Item               | Field Name      | MongoDB Data Type | Notes / Rules   |
+> |--------------------|-----------------|-------------------|-----------------|
+> |                    | FIELD_NAME_HERE | DATA_TYPE_HERE    |                 |
+> | Title              | title           | string            |                 |
+> | Year               | year            | int               | four digit year |
+> | Writers            | writers         | array             |                 |
+> | Summary            | summary         | string            |                 |
+> | Franchise          | franchise       | string            |                 |
+> | Running Time       | running_time    | int               | minutes         |
+> | Budget             | budget          | long or int       | USD $           |
+> | Box Office Takings | box_office      | long or int       | USD $           |
+> | Directors          | directors       | array             |                 |
+> | Actors             | actors          | array             |                 |
+> |                    |                 | DATA_TYPE_HERE    |                 |
+> |                    | FIELD_NAME_HERE | DATA_TYPE_HERE    |                 |
+> |                    | FIELD_NAME_HERE | DATA_TYPE_HERE    |                 |
+> |                    | FIELD_NAME_HERE | DATA_TYPE_HERE    |                 |
 
 
 - Provide the schema validation code for the collection.
 
 > ```js
-> db.createCollection("films",{
-> validator: {
-> $jsonSchema: {
->   bsonType: "object",
->   title: "Film object validation",
->   required: ["title", "year", "summary", "running_time"],
->   properties: {
->       title: {
->           bsonType: "string",
->           minLength: 1,
->           maxLength: 200,
->           description: "'title' must be a string and is required. "},
->       year: {
->           bsonType: "int",
->           minimum: 1900,
->           maximum: 2026,
->           description: "'year' must be an integer and have 4 digits"},
->       writers: {
->           bsonType: "array",
->           items: {
->               bsonType: "string",
->           },
->           description: "'writers' must be an array of strings."},
->       summary: {
->           bsonType: "string",
->           minLength: 1,
->           description: "'summary' must be a string."},
->       franchise: {
->           bsonType: "string",
->           description: "'franchise' must be a string"}, 
->       running_time: {
->           bsonType: "int",
->           minimum: 1,
->           description: "'running_time' must be an integer with a positive value."},
->       budget: {
->           bsonType: "long",
->           minimum: 0,
->           description: "'budget' must be a positive integer."},
->       b_office_earnings: {
->           bsonType: "long",
->           minimum: 0,
->           description: "'box_office_earnings' must be a positive integer."},
->       directors: {
->           bsonType: "array",
->           items: {
->               bsonType: "string"
->           },
->           minItems: 1,
->           description: "'directors' must be an array of strings and have at least one value"},
->       actors: {
->           bsonType: "array",
->           items: {
->               bsonType: "string"
->           },
->           minItems: 1,
->           description: "'actors' must be an array of strings and have at least one value"}
-> }  
-> }
-> },
-> })
+ db.createCollection("films",{
+ validator: {
+ $jsonSchema: {
+   bsonType: "object",
+   title: "Film object validation",
+   required: ["title"],
+   properties: {
+       title: {
+           bsonType: "string",
+           minLength: 1,
+           maxLength: 200,
+           description: "'title' must be a string and is required. "},
+       year: {
+            bsonType: ["int", "long"],
+           minimum: 1900,
+           maximum: 2026,
+           description: "'year' must be an integer and have 4 digits"},
+       writers: {
+           bsonType: "array",
+           items: {
+               bsonType: "string",
+           },
+           description: "'writers' must be an array of strings."},
+       summary: {
+           bsonType: "string",
+           minLength: 1,
+           description: "'summary' must be a string."},
+       franchise: {
+           bsonType: "string",
+           description: "'franchise' must be a string"}, 
+       running_time: {
+           bsonType: "int",
+           minimum: 1,
+           description: "'running_time' must be an integer with a positive value."},
+       budget: {
+           bsonType: ["int", "long", "null"],
+           minimum: 0,
+           description: "'budget' must be a positive integer."},
+       box_office: {
+           bsonType: ["int", "long", "null"],
+           minimum: 0,
+           description: "'box_office_earnings' must be a positive integer."},
+       directors: {
+           bsonType: "array",
+           items: {
+               bsonType: "string"
+           },
+           minItems: 1,
+           description: "'directors' must be an array of strings and have at least one value"},
+       actors: {
+           bsonType: "array",
+           items: {
+               bsonType: "string"
+           },
+           minItems: 1,
+           description: "'actors' must be an array of strings and have at least one value"}
+ }  
+ }
+ },
+ })
 > ```
 
 
@@ -382,7 +382,28 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+db.films.insertMany([
+    {
+        title: "My Dearest Assassin",
+        writers: ["Watthana Veerayawatthana"],
+        directors: ["Taweewat Wantha"],
+        actors: [
+            "Pimchanok Luevisadpaibul",
+            "Tor Thanapob Leeratanakachorn",
+            "Sivakorn Adulsuttikul"
+        ],
+        year: 2026,
+        running_time: 127,
+        budget: NumberLong("237000000"),
+        genres: ["Action", "Romance", "Thai", "Thriller", "Drama"]
+    },
+    {
+        title: "Fictionally Fake Film"
+    },
+    {
+        title: "You Cannae be Serious About a Fictional Film"
+    }
+])
 ```
 
 
@@ -400,7 +421,8 @@ What was the complete command you used to perform the import of the provided sam
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	mongoimport   --uri="mongodb+srv://turbat-learning.ooypepa.mongodb.net/saas_bed_portfolio_2026s1"   
+--username="Turbat"   --collection="films"   --file="film-data.json"   --jsonArray
 ```
 
 

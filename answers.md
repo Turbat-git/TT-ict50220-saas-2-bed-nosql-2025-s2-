@@ -444,10 +444,10 @@ Add the provided additional sample data into the films collection in the order p
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find();
 ```
 	
-
+![img_2.png](assets/images/step-5-001.png)
 
 ## 5.2 Retrieve all films written by…
 
@@ -456,13 +456,12 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({writers: "James Cameron"});
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
-
+![img_2.png](assets/images/step-5-002.png)
 
 
 ## 5.3 Retrieve films with actor(s)…
@@ -472,8 +471,10 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({actors: "Kate Winslet"});
 ```
+
+![img_2.png](assets/images/step-5-003.png)
 	
 
 
@@ -484,10 +485,10 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({franchise: "The Hobbit"});
 ```
 	
-
+![img_2.png](assets/images/step-5-004.png)
 
 ## 5.5 Retrieve films released in range…
 
@@ -496,12 +497,14 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({
+    year: {$gte: 1980, $lte: 2020 }
+    });
 ```
 	
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-5-005.png)
 
 
 ## 5.6 Retrieve films longer than…
@@ -511,8 +514,10 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({running_time: {$gte: 120}});
 ```
+
+![img_2.png](assets/images/step-5-006.png)
 
 
 ## 5.7 Retrieve films released in range…
@@ -522,13 +527,12 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({year: {$gte: 2022}});
 ```
 	
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
-
+![img_2.png](assets/images/step-5-007.png)
 
 
 # Step 6: CRUD - Updates

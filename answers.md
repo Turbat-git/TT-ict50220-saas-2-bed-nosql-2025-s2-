@@ -748,12 +748,14 @@ This step requires you to remove films from the collection.
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.deleteOne({
+    title: "Pee Wee Herman's Big Adventure"
+});
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-8-001.png)
 
 
 
@@ -767,12 +769,13 @@ Delete the film “`Fictionally Fake Film`” by:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({title: "Fictionally Fake Film"});
+    db.films.deleteOne({_id: ObjectId('6a3368ba482a1e295063b116')});
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-8-002.png)
 
 
 
@@ -783,12 +786,14 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.deleteMany({
+        title: {$regex: /fictional/i}
+});
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-8-003.png)
 
 
 

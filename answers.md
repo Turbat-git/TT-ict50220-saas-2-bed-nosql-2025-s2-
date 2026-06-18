@@ -646,12 +646,14 @@ Performing searches on collections.
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find(
+        { "title": { $regex: /^T/i } }
+    )
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-7-001.png)
 
 
 
@@ -662,13 +664,14 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find(
+        {genres: { $regex: /th/i} }
+);
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
-
+![img_2.png](assets/images/step-7-002.png)
 
 
 ## 7.3 Searching for synopses with… and not …
@@ -678,12 +681,17 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({
+        summary: {
+            $regex: /captain/i,
+            $not: /pike/i
+        }
+    })
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-7-003.png)
 
 
 
@@ -694,13 +702,17 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({
+        $or: [
+            {summary: { $regex: /London/ } },
+            {summary: { $regex: /Brooklyn/ } }
+        ]
+});
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
-
+![img_2.png](assets/images/step-7-004.png)
 
 
 ## 7.5 Searching for synopses with … and …
@@ -710,12 +722,17 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({
+    $and: [
+        {summary: { $regex: /team/i } },
+        {summary: { $regex: /search/i } }
+    ]
+});
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-7-005.png)
 
 
 

@@ -809,7 +809,7 @@ Using the films collection, create the indexes to match the following conditions
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.createIndex( { title : 1 } );
 ```
 
 
@@ -818,7 +818,7 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.createIndex( {year: 1, title: 1});
 ```
 
 - Create an index on the `franchise`, `title`, `actors`, `year` fields.
@@ -827,7 +827,7 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.createIndex( {year:1, title: 1, actors: 1, franchise: 1} );
 ```
 
 
@@ -838,7 +838,10 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.createIndex({
+        title: "text",
+        summary: "text"
+});
 ```
 
 
@@ -850,12 +853,14 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.find({ 
+        $text: { $search: "Star" } 
+    }).explain();
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-9-003.png)
 
 
 
@@ -864,9 +869,13 @@ Screen Shot:
 - Briefly explain the differences between an index for sorting against an index for full text searches.
 - Include in your answer when each is best suited for use.
 
-> ANSWER_HERE
+> Indexing for sorting is used to improve performance for queries that order or filter data. These indexes store data in
+> a structured and pre-sorted order, which allows MongoDB to avoid performing in-memory sorting during query execution 
+> and instead retrieve results in the correct order directly from the index.
 >
-> 
+> Full text search indexes are specifically designed for searching words within string-based fields. They work by
+> breaking text into individual tokens, ignoring case differences, and excluding common stop words to improve search
+> efficiency. Full text search indexes are best used for searching texts such as titles or summaries,
 
 
 # Step 10: Aggregation

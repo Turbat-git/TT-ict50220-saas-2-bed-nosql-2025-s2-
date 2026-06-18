@@ -421,8 +421,8 @@ What was the complete command you used to perform the import of the provided sam
 Query Solution:
 
 ```js
-	mongoimport   --uri="mongodb+srv://turbat-learning.ooypepa.mongodb.net/saas_bed_portfolio_2026s1"   
---username="Turbat"   --collection="films"   --file="film-data.json"   --jsonArray
+    mongoimport   --uri="mongodb+srv://turbat-learning.ooypepa.mongodb.net/saas_bed_portfolio_2026s1" 
+    --username=Turbat --collection=films --file="film-data.json"   --jsonArray
 ```
 
 
@@ -544,8 +544,26 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.updateOne(
+    { title: "The Hobbit: The Desolation of Smaug" },
+    {
+        $set: {
+            summary: "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
+        }
+    }
+)
+
+db.films.updateOne(
+    { title: "The Hobbit: An Unexpected Journey" },
+    {
+        $set: {
+            summary: "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."
+        }
+    }
+)
 ```
+
+![img_2.png](assets/images/step-6-001.png)
 	
 
 
@@ -556,12 +574,64 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.updateOne(
+        {title: "Star Trek VI: The Undiscovered Country"},
+        {$push: {
+                actors: {
+                    $each: [
+                        "William Shatner",
+                        "Leonard Nimoy",
+                        "DeForest Kelley",
+                        "James Doohan",
+                        "Christopher Plummer"
+                    ]
+                }
+            }
+        }
+        );
+    
+    db.films.updateOne(
+        {title: "Star Trek: Nemesis"},
+        {$push: {
+            actors: {
+                $each: [
+                    "Patrick Stewart", 
+                    "Jonathan Frakes",
+                    "Brent Spiner", 
+                    "LeVar Burton",
+                    "Michael Dorn", 
+                    "Gates McFadden",
+                    "Marina Sirtis"
+
+                ]
+            }
+            }
+        }
+    )
+
+    db.films.updateOne(
+        {title: "Star Trek VI: The Undiscovered Country"},
+        {$push: {
+            actors: {
+                $each: [
+                    "Walter Koenig", 
+                    "Nichelle Nichols",
+                    "George Takei", 
+                    "Kim Cattrall",
+                    "David Warner"
+                ]
+            }
+            }
+        }
+    )
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-6-002-1.png)
+![img_3.png](assets/images/step-6-002-2.png)
+![img_4.png](assets/images/step-6-002-3.png)
+![img_5.png](assets/images/step-6-002-4.png)
 
 
 # Step 7: CRUD – Searches

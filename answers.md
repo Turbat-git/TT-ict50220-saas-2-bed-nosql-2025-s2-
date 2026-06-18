@@ -21,7 +21,8 @@ Replace GIVEN_NAME_HERE, FAMILY_NAME_HERE and STUDENT_ID_HERE entries with your 
 | Anna       | Seed        | x1234567890 |
 | Turbat     | Turkhuu     | 20136824    |
 
-
+## Github
+https://github.com/Turbat-git/TT-ict50220-saas-2-bed-nosql-2025-s2-
 
 # Declaration
 
@@ -1001,8 +1002,28 @@ Using the films collection, we are now going to create triggers to provide an au
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	exports = async function(changeEvent) {
+    try {
+        const auditCollection = context.services
+            .get("Turbat-Learning")
+            .db(changeEvent.ns.db)
+            .collection("film_audit");
+
+        await auditCollection.insertOne({
+            action: "INSERT",
+            action_date: new Date(),
+            original_data: changeEvent.fullDocument
+        });
+    } catch(err) {
+        console.log("error performing mongodb write: ", err.message);
+    }
+};
+
+
+
 ```
+
+![img_2.png](assets/images/step-11-001-2.png)
 
 
 
@@ -1013,9 +1034,22 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.insertOne({
+    title: "Jeffrey",
+    writers: ["Paul Rudnick"],
+    year: 1995,
+    actors: [
+        "Sigourney Weaver", 
+        "Patrick Stewart", 
+        "Michael T. Weiss", 
+        "Steven Weber", 
+        "Bryan Batt"
+    ],
+    box_office: 3500000,
+    running_time: 92
+});
 ```
-
+![img_2.png](assets/images/step-11-002.png)
 
 
 ## 11.3 Create trigger for updated data
@@ -1025,12 +1059,29 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	exports = async function(changeEvent) {
+    try {
+        const auditCollection = context.services
+            .get("Turbat-Learning")
+            .db(changeEvent.ns.db)
+            .collection("film_audit");
+
+        await auditCollection.insertOne({
+            action: "UPDATE",
+            action_date: new Date(),
+            original_data: changeEvent.fullDocumentBeforeChange,
+            data: changeEvent.fullDocument
+        });
+    } catch(err) {
+        console.log("error performing mongodb write: ", err.message);
+    }
+};
+
+
 ```
 
 Screen Shot:
-
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
+![img_2.png](assets/images/step-11-003.png)
 
 
 
@@ -1041,9 +1092,36 @@ Screen Shot:
 Query Solution:
 
 ```js
-	db.collection_name.find();
-```
+	db.films.updateOne(
+    { title: "Avatar" },
+    {
+        $set: {
+            budget: 237000000,
+            running_time: 162,
+            box_office: Long(2923000000),
+            franchise: "Avatar"
+        }
+    }
+);
 
+db.films.updateOne(
+    { title: "Avatar" },
+    {
+        $push: {
+            actors:{
+                $each: [
+                "Sam Worthington",
+                "Zoe Saldana",
+                "Stephen Lang",
+                "Michelle Rodriguez",
+                "Sigourney Weaver"
+                ]
+            }
+        }
+    }
+);
+```
+![img_2.png](assets/images/step-11-004.png)
 
 
 ## 11.5 Create trigger for deleted data
@@ -1053,7 +1131,23 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	exports = async function(changeEvent) {
+    try {
+        const auditCollection = context.services
+            .get("Turbat-Learning")
+            .db(changeEvent.ns.db)
+            .collection("film_audit");
+
+        await auditCollection.insertOne({
+            action: "DELETE",
+            action_date: new Date(),
+            original_data: changeEvent.fullDocumentBeforeChange,
+        });
+    } catch(err) {
+        console.log("error performing mongodb write: ", err.message);
+    }
+};
+
 ```
 
 
@@ -1064,7 +1158,9 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.films.deleteMany({
+    title: {$regex: /dummy/i}
+});
 ```
 
 
@@ -1076,13 +1172,13 @@ Query Solution:
 Query Solution:
 
 ```js
-	db.collection_name.find();
+	db.film_audit.countDocuments();
 ```
 
 Screen Shot:
 
-![Step 3.3 Screenshot](assets/SCREENSHOT_FILENAME_HERE.png)
-
+![img_2.png](assets/images/step-11-007.png)
+![img_2.png](assets/images/step-11-007-2.png)
 
 
 
@@ -1091,7 +1187,7 @@ Screen Shot:
 What is the URL for your GitHub (or equivalent) repository for this assessment?
 
 ```text
-add url here
+https://github.com/Turbat-git/TT-ict50220-saas-2-bed-nosql-2025-s2-
 ```
 
 # END

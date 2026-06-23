@@ -235,8 +235,9 @@ What naming convention will you use for the database, collections and fields use
 
 Justify why did you choose this naming convention?
 
-> While there are not set standard set for MongoDB like Pep-8 for Python. On the MongoDB Atlas tutorials, the staff
-> were using snake_case for many of the database and collections.
+> I chose snake_case because it provides a consistent and readable naming format across the entire database. Using 
+> lowercase letters and underscores avoids issues that can occur with spaces, special characters, and case sensitivity.
+> It also makes field names easier to read when they contain multiple words, such as release_date or film_title
 
 ## 3.2 Connecting
 
@@ -363,7 +364,83 @@ Replace `FIELD_NAME_HERE` and `DATA_TYPE_HERE` in the table below.
 - Create a new collection named _films_ and insert the provided data (full statement)
 
 > ```js
-> 	CREATE_COLLECTION_IN_MONGODB_ANSWER_HERE
+db.createCollection("films",{
+ validator: {
+ $jsonSchema: {
+   bsonType: "object",
+   title: "Film object validation",
+   required: ["title"],
+   properties: {
+       title: {
+           bsonType: "string",
+           minLength: 1,
+           maxLength: 200,
+           description: "'title' must be a string and is required. "},
+       year: {
+            bsonType: ["int", "long"],
+           minimum: 1900,
+           maximum: 2026,
+           description: "'year' must be an integer and have 4 digits"},
+       writers: {
+           bsonType: "array",
+           items: {
+               bsonType: "string",
+           },
+           description: "'writers' must be an array of strings."},
+       summary: {
+           bsonType: "string",
+           minLength: 1,
+           description: "'summary' must be a string."},
+       franchise: {
+           bsonType: "string",
+           description: "'franchise' must be a string"}, 
+       running_time: {
+           bsonType: "int",
+           minimum: 1,
+           description: "'running_time' must be an integer with a positive value."},
+       budget: {
+           bsonType: ["int", "long", "null"],
+           minimum: 0,
+           description: "'budget' must be a positive integer."},
+       box_office: {
+           bsonType: ["int", "long", "null"],
+           minimum: 0,
+           description: "'box_office_earnings' must be a positive integer."},
+       directors: {
+           bsonType: "array",
+           items: {
+               bsonType: "string"
+           },
+           minItems: 1,
+           description: "'directors' must be an array of strings and have at least one value"},
+       actors: {
+           bsonType: "array",
+           items: {
+               bsonType: "string"
+           },
+           minItems: 1,
+           description: "'actors' must be an array of strings and have at least one value"}
+ }  
+ }
+ },
+ })
+
+
+db.films.insertOne({
+    title: "Star Trek: Nemesis",
+    year: 2002,
+    writers: [
+        "John Logan",
+        "Rick Berman",
+        "Brent Spiner"
+    ],
+    summary: "A clone of Picard, created by the Romulans, assassinates the Romulan Senate, assumes absolute power, and 
+        lures Picard and the Enterprise to Romulus under the false pretext of a peace overture.",
+    franchise: "Star Trek",
+    running_time: 117,
+    budget: NumberLong(60000000),
+    b_office_earnings: NumberLong(67300000)
+})
 > ```
 
 
@@ -952,7 +1029,7 @@ Query Solution:
         $project: {
             _id: 0,
             title: 1,
-            profit: { $subtract: ["$boxOffice", "$budget"] }
+            profit: { $subtract: ["$box_office", "$budget"] }
         }
     }
 ]);
@@ -1022,8 +1099,12 @@ Query Solution:
 
 
 ```
-
-![img_2.png](assets/images/step-11-001-2.png)
+![img_2.png](assets/images/step-11-001-1.png)
+![img_2.png](assets/images/step-11-001-2-2.png)
+![img_2.png](assets/images/step-11-001-3.png)
+![img_2.png](assets/images/step-11-001-4.png)
+![img_2.png](assets/images/step-11-001-5.png)
+![img_2.png](assets/images/step-11-001-6.png)
 
 
 

@@ -1099,6 +1099,31 @@ Query Solution:
 
 
 ```
+1. From the mongodb hamburger menu, under "Streaming Data", I pressed on "Triggers". This took me to the "Triggers" page 
+and I pressed on the "Add Trigger" button.
+
+2. From the two "Trigger Types", I chose "Database" instead of "Scheduled". Scheduled Trigger means that it happens 
+periodically, e.g. daily or weekly. Database Trigger happens when an action happens in the database, such as Insert.
+
+3. Next, there are three "Watch Against" options. Collection, Database and Deployment. Choosing Collection means that
+only when the specified collection has had changes will the Trigger fire. Database Trigger includes all collections in
+that Database. Deployment Trigger includes all Databases and Collections within a Cluster. I chose "Collection".
+
+4. Next, I chose my Cluster, Database and Collection.
+
+5. I chose the operation type "Insert". This means that the Trigger will fire only when Insert happens to the films 
+Collection
+
+6. Full Document means that the provides access to the entire document after the operation has occurred. Document 
+Pre-Image means that the data before it was modified or deleted will be accessible. Only the Full Document option is
+useful for Insert Trigger but since it is always sent for Insert and Replace operations, I didn't need to physically 
+check the box. 
+
+7. I added the function to send the log of the Insert action and the data that was inserted to a Collection named 
+film_audit.
+
+8. I chose the name for the Trigger. 
+
 ![img_2.png](assets/images/step-11-001-1.png)
 ![img_2.png](assets/images/step-11-001-2-2.png)
 ![img_2.png](assets/images/step-11-001-3.png)
